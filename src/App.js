@@ -77,20 +77,33 @@ class App extends React.Component {
 
   {this.state.cityData.place_id && (
             <>
+<<<<<<< HEAD
               <Alert variant='primary' style={{margin: '25px', boxShadow: '2px 2px 2px gray'}} >
+=======
+              <Alert variant='primary' style={{margin: '50px', boxShadow: '2px 2px 2px gray'}} >
+>>>>>>> f0f5b14af84f2a0bdb5ddeb780ace0ecf71d6a38
                 <h2>Location: {this.state.cityData.display_name}</h2>
                 <h2>Latitude: {this.state.cityData.lat}</h2>
                 <h2>Longitude: {this.state.cityData.lon}</h2>
               </Alert>
               <img style={{display: 'block', margin: 'auto', boxShadow: '2px 2px 2px #b4cde7', borderRadius: '50px'}}
+<<<<<<< HEAD
             src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=10`}
             alt='map'
+=======
+            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12`}
+            alt='static map'
+>>>>>>> f0f5b14af84f2a0bdb5ddeb780ace0ecf71d6a38
           />
             </>
           )}
 
   {this.state.error && (
+<<<<<<< HEAD
             <Alert variant='danger' style={{margin: '100px', boxShadow: '2px 2px 2px red'}}>
+=======
+            <Alert variant='danger' style={{margin: '500px', boxShadow: '2px 2px 2px red'}}>
+>>>>>>> f0f5b14af84f2a0bdb5ddeb780ace0ecf71d6a38
               <h2>Error: {this.state.errorMessage}</h2>
             </Alert>
           )}
