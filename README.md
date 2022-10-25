@@ -25,3 +25,12 @@ Created using React, bootstrap, API, Axios, locationIQ, and maps. Used a form to
 
 Nicholas Seidel and Nerissa Leynes resource: https://jamboard.google.com/d/13p4hqZPDgGrd1-gMHu-Bo27zsZCKkyRYdUNTW-72VqI/viewer?f=0
 
+Name of feature: long, lat, and maps
+
+Estimate of time needed to complete: 3hrs
+
+Start time: 2pm
+
+Finish time: 8pm
+
+Actual time needed to complete: 6hrs
