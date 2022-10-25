@@ -77,21 +77,21 @@ class App extends React.Component {
 
   {this.state.cityData.place_id && (
             <>
-              <Alert variant='success' style={{margin: '50px', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.125)'}} >
+              <Alert variant='primary' style={{margin: '50px', boxShadow: '2px 2px 2px gray'}} >
                 <h2>Location: {this.state.cityData.display_name}</h2>
                 <h2>Latitude: {this.state.cityData.lat}</h2>
                 <h2>Longitude: {this.state.cityData.lon}</h2>
               </Alert>
-              <img style={{display: 'block', margin: 'auto', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.125)', borderRadius: '5px'}}
+              <img style={{display: 'block', margin: 'auto', boxShadow: '2px 2px 2px #b4cde7', borderRadius: '50px'}}
             src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12`}
-            alt='map'
+            alt='static map'
           />
             </>
           )}
 
   {this.state.error && (
-            <Alert variant='danger' style={{margin: '50px', boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.125)'}}>
-              <h2>Oh no! {this.state.errorMessage}</h2>
+            <Alert variant='danger' style={{margin: '500px', boxShadow: '2px 2px 2px red'}}>
+              <h2>Error: {this.state.errorMessage}</h2>
             </Alert>
           )}
       </Container>
