@@ -1,13 +1,6 @@
-import './App.css';
+import './css/App.css';
 import React from 'react';
 import axios from 'axios';
-import Alert from 'react-bootstrap/Alert';
-import Header from './Header.js';
-import Footer from './Footer.js';
-import Main from './Main.js'; 
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,10 +9,14 @@ class App extends React.Component {
         city: '',
         cityData: [],
         error: false,
-        errorMessage: ''
+        errorMessage: '',
+        lat: '',
+        lon: '',
+        mapData: [],
+        center: '',
         }
       }
-
+    // handleInput prevents form from automatically submitting or prevents the page from refreshing 
     handleInput = (e) => {
       e.preventDefault();
       this.setState({
@@ -33,7 +30,7 @@ class App extends React.Component {
   
       try {
         
-        let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+        let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&lat=${this.state.lat}&${this.state.lon}format=json`
         
         console.log(url);
 
@@ -42,7 +39,7 @@ class App extends React.Component {
         console.log(cityData.data[0]);
         this.setState({
           cityData: cityData.data[0],
-          error: false
+          error: false,
         });
       
       } catch(error){
@@ -53,53 +50,31 @@ class App extends React.Component {
         })
       }
     }
-
   render() {
     return (
   <>
-  <Header />
-        <Main />
-        <Footer />
-
-        <Container>
-          <Form>
-            <Form.Group>
-            <Form.Control 
-            type = 'City'
-            placeholder = 'Search'
-            onChange={this.handleInput}
-            />
-            <Button variant='primary' type='click' onClick={this.getCityData} class="p-2">
-              Explore now!
-            </Button>
-            </Form.Group>
-          </Form>
-
-  {this.state.cityData.place_id && (
-            <>
-              <Alert variant='primary' style={{margin: '50px', boxShadow: '2px 2px 2px gray'}} >
-                <h2>Location: {this.state.cityData.display_name}</h2>
-                <h2>Latitude: {this.state.cityData.lat}</h2>
-                <h2>Longitude: {this.state.cityData.lon}</h2>
-              </Alert>
-              <img style={{display: 'block', margin: 'auto', boxShadow: '2px 2px 2px #b4cde7', borderRadius: '50px'}}
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12`}
-            alt='static map'
-          />
-            </>
-          )}
-
-  {this.state.error && (
-            <Alert variant='danger' style={{margin: '500px', boxShadow: '2px 2px 2px red'}}>
-              <h2>Error: {this.state.errorMessage}</h2>
-            </Alert>
-          )}
-      </Container>
-
+  {/*form and button creation*/}
+  {/* form use function getCityData upon click; and uses function handleInput to prevent page and submit from being pushed prematurely */}
+  <form onSubmit={this.getCityData}> 
+      <label> Enter a City!
+        <input type= "text" onInput={this.handleInput}/>
+        <button type= "submit" > Explore!</button>
+      </label>
+  </form>
+      {/*Ternary W ? T : F */}
+      {
+      this.state.error
+      ?
+      <p>{this.state.errorMessage}</p>
+      :
+      <>
+      <p>{this.state.cityData.display_name} {this.state.cityData.lat} {this.state.cityData.lon} {this.state.mapData.center}</p>
+      <img src = {`https://maps.locationiq.com/v3/staticmap/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=14`}  alt='map'/>
+      </>
+      } 
   </>
   );
   }
 }
-
 
 export default App;
