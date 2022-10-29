@@ -4,6 +4,7 @@
 **Version**: 1.1.0
 
 ## Overview
+<<<<<<< HEAD
 
 Providing an application to locate the latitude and longitudes of specific locations. Useful information for many different parties who interact with it. 
 
@@ -32,3 +33,22 @@ Created using React, bootstrap, API, Axios, locationIQ, and maps. Used a form to
 
 Nicholas Seidel and Nerissa Leynes, Jonathan Staib
 
+Name of feature: long, lat, and maps
+
+Estimate of time needed to complete: 3hrs
+
+Start time: 2pm
+
+Finish time: 8pm
+
+Actual time needed to complete: 6hrs
+
+Name of feature: forecast from server
+
+Estimate of time needed to complete: 5hrs
+
+Start time: 2pm
+
+Finish time: 8pm
+
+Actual time needed to complete: 2 days
