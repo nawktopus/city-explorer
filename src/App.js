@@ -1,13 +1,9 @@
-import './App.css';
+import './css/App.css';
 import React from 'react';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
-import Header from './Header.js';
-import Footer from './Footer.js';
-import Main from './Main.js'; 
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+import Figure from 'react-bootstrap/Figure';
+import Weather from './Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,10 +12,16 @@ class App extends React.Component {
         city: '',
         cityData: [],
         error: false,
-        errorMessage: ''
+        errorMessage: '',
+        lat: '',
+        lon: '',
+        mapURL: '',
+        center: '',
+        weatherData: [],
+        // cityToDisplay: [],
         }
       }
-
+    // handleInput prevents form from automatically submitting or prevents the page from refreshing 
     handleInput = (e) => {
       e.preventDefault();
       this.setState({
@@ -33,18 +35,32 @@ class App extends React.Component {
   
       try {
         
-        let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
-        
-        console.log(url);
+        let LocationURL = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+        console.log(LocationURL);
 
-        let cityData = await axios.get(url);
-  
-        console.log(cityData.data[0]);
+        let locationData = await axios.get(LocationURL);
+        
+        let cityToDisplay = locationData.data[0];
+        
+        console.log(cityToDisplay);
+        console.log(cityToDisplay.lat);
+        console.log(cityToDisplay.lon)
+
+
+        let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${cityToDisplay.lat},${cityToDisplay.lon}&zoom=14`
+        // https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${cityToDisplay.lat},${cityToDisplay.lon}&zoom=14&markers=icon:small-red-cutout|${cityToDisplay.lat},${cityToDisplay.lon}
+        console.log(mapURL);
+
         this.setState({
-          cityData: cityData.data[0],
-          error: false
+          lat: cityToDisplay.lat,
+          lon: cityToDisplay.lon,
+          cityData: cityToDisplay,
+          map: mapURL,
+          error: false,
         });
-      
+        console.log(cityToDisplay);
+      this.getWeatherData(cityToDisplay);
+
       } catch(error){
         console.log(error);
         this.setState({
@@ -54,52 +70,64 @@ class App extends React.Component {
       }
     }
 
+    getWeatherData = async (location) => {
+      try {
+        
+        let url = `${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}&lat=${location.lat}&lon=${location.lon}`
+  
+        console.log('weather url', url);
+  
+        let weatherData = await axios.get(url)
+  
+        this.setState({
+          weatherData: weatherData.data,
+        });
+      } catch (error) {
+        this.setState({
+          error: true,
+          errorMessage: error.message
+        });
+      }
+    }
   render() {
     return (
   <>
-  <Header />
-        <Main />
-        <Footer />
 
-        <Container>
-          <Form>
-            <Form.Group>
-            <Form.Control 
-            type = 'City'
-            placeholder = 'Search'
-            onChange={this.handleInput}
-            />
-            <Button variant='primary' type='click' onClick={this.getCityData} class="p-2">
-              Explore now!
-            </Button>
-            </Form.Group>
-          </Form>
-
-  {this.state.cityData.place_id && (
+  {/*form and button creation*/}
+  {/* form use function getCityData upon click; and uses function handleInput to prevent page and submit from being pushed prematurely */}
+  <form onSubmit={this.getCityData}> 
+      <label> Enter a City!
+        <input type= "text" onInput={this.handleInput}/>
+        <button type= "submit" > Explore!</button>
+      </label>
+  </form>
+      {/*Ternary W ? T : F */}
+      {
+      this.state.error
+      ?
+      <Alert variant='warning'>{this.state.errorMessage}</Alert>
+            :
+            this.state.cityData &&
             <>
-              <Alert variant='primary' style={{margin: '50px', boxShadow: '2px 2px 2px gray'}} >
-                <h2>Location: {this.state.cityData.display_name}</h2>
-                <h2>Latitude: {this.state.cityData.lat}</h2>
-                <h2>Longitude: {this.state.cityData.lon}</h2>
-              </Alert>
-              <img style={{display: 'block', margin: 'auto', boxShadow: '2px 2px 2px #b4cde7', borderRadius: '50px'}}
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&zoom=12`}
-            alt='static map'
-          />
-            </>
-          )}
-
-  {this.state.error && (
-            <Alert variant='danger' style={{margin: '500px', boxShadow: '2px 2px 2px red'}}>
-              <h2>Error: {this.state.errorMessage}</h2>
-            </Alert>
-          )}
-      </Container>
-
+            <Figure>
+              <Figure.Image
+                width={500}
+                height={500}
+                alt="Map of city chosen by the user"
+                src={this.state.map}
+              />
+              <Figure.Caption>
+                {this.state.cityData.display_name} {this.state.cityData.lat}  {this.state.cityData.lon}
+              </Figure.Caption>
+            </Figure>
+            <Weather
+              weatherData={this.state.weatherData}
+            />
+      </>
+      } 
   </>
   );
   }
 }
-
 
 export default App;
