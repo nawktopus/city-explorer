@@ -18,12 +18,14 @@ Providing an application to locate the latitude and longitudes of specific locat
 ## Architecture
 Created using React, bootstrap, API, Axios, locationIQ, and maps. Used a form to get the necessary data to utilize both the maps and locationiq's database for the longitude and latitude as well as an image of the inquired location. Displayed an error when applicable and an image as well as the city name, long and lat. 
 
+![]()
+
 ## Change Log
 10-24-2022 Initial creation
 
 ## Credit and Collaborations
 
-Nicholas Seidel and Nerissa Leynes resource: https://jamboard.google.com/d/13p4hqZPDgGrd1-gMHu-Bo27zsZCKkyRYdUNTW-72VqI/viewer?f=0
+Nicholas Seidel and Nerissa Leynes, Jonathan Staib : https://jamboard.google.com/d/13p4hqZPDgGrd1-gMHu-Bo27zsZCKkyRYdUNTW-72VqI/viewer?f=0
 
 Name of feature: long, lat, and maps
 
@@ -34,3 +36,13 @@ Start time: 2pm
 Finish time: 8pm
 
 Actual time needed to complete: 6hrs
+
+Name of feature: forecast from server
+
+Estimate of time needed to complete: 5hrs
+
+Start time: 2pm
+
+Finish time: 8pm
+
+Actual time needed to complete: 2 days
