@@ -1,23 +1,34 @@
 # Project Name
 
 **Author**: Jordan Kwan
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.1.0
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+
+Providing an application to locate the latitude and longitudes of specific locations. Useful information for many different parties who interact with it. 
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+
+1. Set up Repo on GitHub.
+2. Set up React app.
+3. Create an API token for selected API of choice.
+4. Test and Deploy React app.
+5. Utilise documentation for getting the longitude and latitude of location with a form `lat`,`lon`, and `display_name`.
+6. Use the correct link for the map image.
+7. Add an error for when applicable.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+Created using React, bootstrap, API, Axios, locationIQ, and maps. Used a form to get the necessary data to utilize both the maps and locationiq's database for the longitude and latitude as well as an image of the inquired location. Displayed an error when applicable and an image as well as the city name, long and lat. 
+
+![WRRC](./src/images/Lab.07.WRRC.jpg)
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+10-24-2022 Initial creation
+10-28-2022 Weather API
 
 ## Credit and Collaborations
 
-Nicholas Seidel and Nerissa Leynes resource: https://jamboard.google.com/d/13p4hqZPDgGrd1-gMHu-Bo27zsZCKkyRYdUNTW-72VqI/viewer?f=0
+Nicholas Seidel and Nerissa Leynes, Jonathan Staib
 
