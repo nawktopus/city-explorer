@@ -4,6 +4,10 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import Figure from 'react-bootstrap/Figure';
 import Weather from './Weather';
+import { Next } from 'react-bootstrap/esm/PageItem';
+import Movie from'./Movie';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +22,7 @@ class App extends React.Component {
         mapURL: '',
         center: '',
         weatherData: [],
-        // cityToDisplay: [],
+        movieData: [],
         }
       }
     // handleInput prevents form from automatically submitting or prevents the page from refreshing 
@@ -35,12 +39,13 @@ class App extends React.Component {
   
       try {
         
-        let LocationURL = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+        let LocationURL = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&&format=json`
         console.log(LocationURL);
 
         let locationData = await axios.get(LocationURL);
         
         let cityToDisplay = locationData.data[0];
+        let searchCity = this.state.city;
         
         console.log(cityToDisplay);
         console.log(cityToDisplay.lat);
@@ -60,6 +65,7 @@ class App extends React.Component {
         });
         console.log(cityToDisplay);
       this.getWeatherData(cityToDisplay);
+      this.getMovieData(searchCity);
 
       } catch(error){
         console.log(error);
@@ -72,15 +78,18 @@ class App extends React.Component {
 
     getWeatherData = async (location) => {
       try {
-        
-        let url = `${process.env.REACT_APP_SERVER}/weather?cityName=${this.state.city}&lat=${location.lat}&lon=${location.lon}`
+        console.log(location.lat);
+        console.log(location.lon);
+        let wURL = `${process.env.REACT_APP_SERVER}/weather?lat=${location.lat}&lon=${location.lon}&day=7&units=F`
   
-        console.log('weather url', url);
+        console.log('weather url', wURL);
   
-        let weatherData = await axios.get(url)
-  
+        let weatherData = await axios.get(wURL)
+        console.log(weatherData);
         this.setState({
           weatherData: weatherData.data,
+          error: false,
+          errorMessage: '',
         });
       } catch (error) {
         this.setState({
@@ -89,11 +98,36 @@ class App extends React.Component {
         });
       }
     }
+
+    getMovieData = async (newCity) => {
+      try{
+        
+        let movieURL = `${process.env.REACT_APP_SERVER}/movies?city_name=${newCity}&language=en-US&page=1&include_adult=false`;
+
+        console.log(newCity);
+
+        let movieData = await axios.get(movieURL);
+
+        console.log(movieData);
+
+        this.setState({
+          movieData:movieData.data,
+          error: false,
+          errorMessage: '',
+        });
+
+      } catch(error) {
+        this.setState({
+          error: true,
+          errorMessage: error.message,
+        });
+      }
+    }
+
   render() {
     return (
   <>
-
-  {/*form and button creation*/}
+  {/*frm and button creation*/}
   {/* form use function getCityData upon click; and uses function handleInput to prevent page and submit from being pushed prematurely */}
   <form onSubmit={this.getCityData}> 
       <label> Enter a City!
@@ -122,6 +156,9 @@ class App extends React.Component {
             </Figure>
             <Weather
               weatherData={this.state.weatherData}
+            />
+             <Movie
+              movieData ={this.state.movieData}
             />
       </>
       } 
