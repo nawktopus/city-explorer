@@ -4,7 +4,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import Figure from 'react-bootstrap/Figure';
 import Weather from './Weather';
-import { Next } from 'react-bootstrap/esm/PageItem';
+//import { Next } from 'react-bootstrap/esm/PageItem';
 import Movie from'./Movie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
