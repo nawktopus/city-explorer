@@ -2,7 +2,7 @@ import React from "react";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 
-class Movie extends React.Component {
+class Movies extends React.Component {
   render() {
     return (
       <>
@@ -29,4 +29,4 @@ class Movie extends React.Component {
 
 }
 
-export default Movie;
+export default Movies;
