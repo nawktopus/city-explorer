@@ -1,7 +1,7 @@
 # Project Name
 
 **Author**: Jordan Kwan
-**Version**: 1.2.0
+**Version**: 1.3.0
 
 ## Overview
 
@@ -31,11 +31,11 @@ Created using React, bootstrap, API, Axios, locationIQ, and maps. Used a form to
 
 10-24-2022 Initial creation
 10-28-2022 Weather API
-10-20-2022 Movie API and Heroku
+10-30-2022 Movie API and Heroku
 
 ## Credit and Collaborations
 
-Nicholas Seidel and Nerissa Leynes, Jonathan Staib
+Nicholas Seidel and Nerissa Leynes, Jonathan Staib, TA Justin
 
 Name of feature: long, lat, and maps
 
@@ -66,3 +66,13 @@ Start time: 4pm
 Finish time: 10pm
 
 Actual time needed to complete: 6 hrs
+
+Name of feature: Refactor
+
+Estimate of time needed to complete: 3hrs
+
+Start time: 6pm
+
+Finish time: 10pm
+
+Actual time needed to complete: 4 hrs
